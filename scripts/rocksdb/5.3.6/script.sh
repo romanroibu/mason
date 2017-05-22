@@ -29,6 +29,9 @@ function mason_compile {
     perl -i -p -e "s/-O2 -fno-omit-frame-pointer/-O3/g;" Makefile
     export CXX="${MASON_CCACHE}/bin/ccache ${CXX}"
     INSTALL_PATH=${MASON_PREFIX} V=1 make install-static -j${MASON_CONCURRENCY}
+    if [[ $(uname -s) == 'Darwin' ]]; then
+        export EXTRA_LDFLAGS="-lc++"
+    fi
     INSTALL_PATH=${MASON_PREFIX} V=1 make tools -j${MASON_CONCURRENCY}
     mkdir -p ${MASON_PREFIX}/bin
     cp ldb ${MASON_PREFIX}/bin/
