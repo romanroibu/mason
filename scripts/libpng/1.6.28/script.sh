@@ -51,6 +51,9 @@ function mason_compile {
         --disable-shared \
         --disable-dependency-tracking
 
+    # Must do make clean after configure to clear out object files left over
+    # from previous build on different architecture
+    make clean
     V=1 VERBOSE=1 make install -j${MASON_CONCURRENCY}
 }
 
