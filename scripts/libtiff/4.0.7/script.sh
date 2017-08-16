@@ -47,6 +47,9 @@ function mason_compile {
     --without-x --disable-pixarlog --disable-next --disable-old-jpeg --disable-logluv \
     --disable-thunder --disable-packbits --disable-ccitt
 
+    # Must do make clean after configure to clear out object files left over
+    # from previous build on different architecture
+    make clean
     make -j${MASON_CONCURRENCY} V=1
     make install
 }
